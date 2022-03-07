@@ -54,6 +54,8 @@
             $('input[type="text"]').keyup(function () {
                 if ($('#userid').val() != '' && $('#userpw').val() != '' && $('#usernick').val() !='') {
                     $(':input[type="button_1"]').prop('disabled', false);
+                } else {
+                    $(':input[type="button_1"]').prop('disabled', true);
                 }
             });
         });
