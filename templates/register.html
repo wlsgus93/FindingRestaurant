@@ -52,7 +52,7 @@
         $(document).ready(function () {
             $(':input[type="button_1"]').prop('disabled', true);
             $('input[type="text"]').keyup(function () {
-                if ($('#userid').val() != '' && ), {
+                if ($('#userid').val() != '' && $('#userpw').val() != '' && $('#usernick').val() !='') {
                     $(':input[type="button_1"]').prop('disabled', false);
                 }
             });
