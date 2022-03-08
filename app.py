@@ -126,6 +126,38 @@ def api_valid():
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
+@app.route('/detail')
+
+
+# headers = {
+#     "X-NCP-APIGW-API-KEY-ID": "s76fz5795p",
+#     "X-NCP-APIGW-API-KEY": "slSZ5BKsgMyGfrEp7LFXW8UcaQ7VZpTgW0mMAzHl"
+# }
+# address="경북 상주시 문무1길 40-5"
+# r = requests.get(f"https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={address}", headers=headers)
+# response = r.json()
+# # print(response)
+# if response["status"] == "OK":
+#     if len(response["addresses"]) > 0:
+#         x = float(response["addresses"][0]["x"])
+#         y = float(response["addresses"][0]["y"])
+#         print(x, y)
+#         doc = {
+#             "mapx": x,
+#             "mapy": y}
+#         db.matjips.insert_one(doc)
+#     else:
+#         print( "좌표를 찾지 못했습니다")
+# else:
+#     print(response["status"])
+#
+# all_users = list(db.users.find({},{'_id':False}))
+# print(all_users)
+
+
+
+def test_map():
+    return render_template("detail.html")
 
 
 @app.route("/detail")
