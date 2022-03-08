@@ -29,6 +29,8 @@
     <script>
         // 간단한 회원가입 함수입니다.
         // 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
+
+
         function register() {
             $.ajax({
                 type: "POST",
@@ -49,14 +51,21 @@
             })
         }
 
+        //비밀번호가 정규식이 아니라면 회원가입버튼이 활성화가 안됨.
+        const passwordRegex =
+            RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
         $(document).ready(function () {
             $(':input[type="button_1"]').prop('disabled', true);
-            $('input[type="text"]').keyup(function () {
-                if ($('#userid').val() != '' && ), {
+            $('#userpw').keyup(function () {
+                if ( passwordRegex.test($('#userpw').val())){
                     $(':input[type="button_1"]').prop('disabled', false);
+                } else {
+                    $(':input[type="button_1"]').prop('disabled', true);
                 }
             });
         });
+
+
 
     </script>
     <style>
@@ -74,7 +83,8 @@
             height: 50px;
             float: left;
             font-size: 40px;
-            margin: 0px 0px 0px 250px;
+            margin-left: 250px;
+            padding-top: 4px;
             font-family: 'Black Han Sans', sans-serif;
         }
 
@@ -91,6 +101,18 @@
 <div class="section has-text-centered">
     <h1 class="title">회원가입 페이지</h1>
     <div class="container" style="width:40%">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label" for="usernick" >NICKNAME</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input type="text" class="input" id="usernick" placeholder="닉네임 입력(필수)">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="field is-horizontal">
             <div class="field-label is-normal">
                 <label class="label" for="userid">ID</label>
@@ -111,24 +133,13 @@
             <div class="field-body">
                 <div class="field">
                     <div class="control">
-                        <input type="password" class="input" id="userpw" placeholder="비밀번호 입력(필수)">
+                        <input type="password" class="input" id="userpw" placeholder="최소 8자, 하나 이상의 대소문자, 숫자, 특수문자 (필수)">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label class="label" for="usernick">NICKNAME</label>
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control">
-                        <input type="text" class="input" id="usernick" placeholder="닉네임 입력(필수)">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button type="button_1" class="btn btn-outline-dark" onclick="register()">회원가입</button>
+
+        <button type="button_1" class="btn btn-outline-dark" disabled onclick="register()">회원가입</button>
         <button type="button" class="btn btn-outline-dark" onclick="window.location.href='/login'">뒤로가기</button>
     </div>
 </div>
