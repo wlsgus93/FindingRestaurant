@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <!-- Webpage Title -->
+    <title>내가 원하는 음식점 어디 맛집 어때</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+
+    <script>
+        // 로그아웃은 내가 가지고 있는 토큰만 쿠키에서 없애면 됩니다.
+        function logout() {
+            $.removeCookie('mytoken');
+            alert('로그아웃!')
+            window.location.href = '/login'
+        }
+
+    </script>
+    <style>
+        .nav {
+            background-color: black;
+            width: 100%;
+            color: white;
+            height: 50px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .subtitle {
+            float: right;
+            margin: 12px;
+
+        }
+        .btn-outline-light {
+            float: right;
+            margin-right: 100px;
+            margin-top: 6px
+        }
+        .logo{
+            width:200px;
+            height: 50px;
+            float: left;
+            font-size: 40px;
+            margin: 2.5px 0px 0px 250px;
+            font-family: 'Black Han Sans', sans-serif;
+        }
+        .cover{
+            background-color: gray;
+            height: 300px;
+            margin-top: 10px;
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("https://wallpapersmug.com/download/1920x1080/ddcbbf/food-pizza-baking.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .Set_filter{
+            background-color: yellowgreen;
+            width: 800px;
+            height: 400px;
+
+            background-size: cover;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 30px;
+
+            margin: auto;
+            margin-top: 40px;
+
+        }
+        .local_tag{
+            background-color: aqua;
+            padding-top: 20px;
+
+        }
+        button{
+            width: 50px;
+
+            margin-right: 40px;
+
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a><h3 class="logo">맛집NOW</h3></a>
+        <button type="button" class="btn btn-outline-light" onclick="logout()">Log out</button>
+        <h5 class="subtitle" style="color: white">{{nickname}}님, 안녕하세요~</h5>
+    </div>
+    <div class="cover">
+
+    </div>
+    <h1>필터</h1>
+    <div class="Set_filter">
+
+        <ul class="filter_tag">
+            <strong class="strong_tag">+지역</strong>
+            <div class="local_tag">
+<!--                    <a href="#" target="_self" role="button" aria-pressed="true">한식</a>-->
+                    <a class="btn btn-primary" href="#" role="button">#강남/서초</a>
+                    <a class="btn btn-primary" href="#" role="button">#홍대</a>
+                    <a class="btn btn-primary" href="#" role="button">#건대</a>
+                    <a class="btn btn-primary" href="#" role="button">#종로</a>
+                    <a class="btn btn-primary" href="#" role="button">#신림</a>
+                    <a class="btn btn-primary" href="#" role="button">#노원</a>
+
+            </div>
+        </ul>
+
+        <ul class="filter_tag">
+            <strong class="strong_tag">음식</strong>
+            <div class="menu_tag">
+                    <a class="btn btn-primary" href="#" role="button">#한식</a>
+                    <a class="btn btn-primary" href="#" role="button">#양식</a>
+                    <a class="btn btn-primary" href="#" role="button">#일식</a>
+                    <a class="btn btn-primary" href="#" role="button">#중식</a>
+
+            </div>
+        </ul>
+
+
+    </div>
+    <div id="cards-box" class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+            <div class="card">
+                <img src="https://www.ganghwa.go.kr/images/locinfo/food/images//small/20181031_4347.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">여기에 제목이 들어감</h5>
+                    <p class="card-text">여기에 내용이 들어감.</p>
+                    <p>⭐⭐⭐</p>
+                    <p class="mycomment">여기에 코멘트가 들어감</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="https://www.ganghwa.go.kr/images/locinfo/food/images//small/20181031_4347.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">여기에 제목이 들어감</h5>
+                    <p class="card-text">여기에 내용이 들어감.</p>
+                    <p>⭐⭐⭐</p>
+                    <p class="mycomment">여기에 코멘트가 들어감</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="https://www.ganghwa.go.kr/images/locinfo/food/images//small/20181031_4347.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">여기에 제목이 들어감</h5>
+                    <p class="card-text">여기에 내용이 들어감.</p>
+                    <p>⭐⭐⭐</p>
+                    <p class="mycomment">여기에 코멘트가 들어감</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+
+
+
+    </div>
+
+
+</body>
+</html>
