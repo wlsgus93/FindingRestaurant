@@ -143,10 +143,17 @@ def detail():
 @app.route("/detail/review", methods=["POST"])
 def review_post():
     review_receive = request.form['review_give']
+    nickname_receive = request.form['nickname_give']
+
+    print(review_receive)
+    print(nickname_receive)
+
+
 
     doc = {
-        'review':review_receive
-    }
+        'review':review_receive,
+        'nickname':nickname_receive
+            }
 
     db.review.insert_one(doc)
     return jsonify({'msg': '등록완료'})
@@ -154,7 +161,11 @@ def review_post():
 @app.route("/detail/review", methods=["GET"])
 def review_get():
     all_review = list(db.review.find({}, {'_id': False}))
+    print(all_review)
     return jsonify({'reviews': all_review})
+
+
+
 
 
 if __name__ == '__main__':

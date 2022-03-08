@@ -1,14 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
-
     <!-- Webpage Title -->
     <title>Hello, world!</title>
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
     <!-- BootStrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,21 +20,39 @@
             crossorigin="anonymous"></script>
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-
-
     <script>
-        // 로그아웃은 내가 가지고 있는 토큰만 쿠키에서 없애면 됩니다.
-        function logout() {
-            $.removeCookie('mytoken');
-            alert('로그아웃!')
-            window.location.href = '/login'
+        {%
+            if msg %}
+        alert("{{ msg }}")
+        {%
+            endif %}
+        // ['쿠키'라는 개념에 대해 알아봅시다]
+        // 로그인을 구현하면, 반드시 쿠키라는 개념을 사용합니다.
+        // 페이지에 관계없이 브라우저에 임시로 저장되는 정보입니다. 키:밸류 형태(딕셔너리 형태)로 저장됩니다.
+        // 쿠키가 있기 때문에, 한번 로그인하면 네이버에서 다시 로그인할 필요가 없는 것입니다.
+        // 브라우저를 닫으면 자동 삭제되게 하거나, 일정 시간이 지나면 삭제되게 할 수 있습니다.
+        function login() {
+            $.ajax({
+                type: "POST",
+                url: "/api/login",
+                data: {id_give: $('#userid').val(), pw_give: $('#userpw').val()},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
+                        // 이 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
+                        $.cookie('mytoken', response['token']);
+                        alert('로그인 완료!')
+                        window.location.href = '/'
+                    } else {
+                        // 로그인이 안되면 에러메시지를 띄웁니다.
+                        alert(response['msg'])
+                    }
+                }
+            })
         }
-
     </script>
     <style>
         .nav {
@@ -46,44 +63,57 @@
             margin-top: 10px;
             display: inline-block;
         }
-        .subtitle {
-            float: right;
-            margin: 12px;
-
-        }
-        .btn-outline-light {
-            float: right;
-            margin-right: 100px;
-            margin-top: 6px
-        }
-        .logo{
-            width:200px;
+        .logo {
+            width: 200px;
             height: 50px;
             float: left;
             font-size: 40px;
-            margin: 2.5px 0px 0px 250px;
+            margin-left: 250px;
+            padding-top: 4px;
             font-family: 'Black Han Sans', sans-serif;
         }
-        .cover{
-            background-color: gray;
-            height: 300px;
-            margin-top: 10px;
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("https://wallpapersmug.com/download/1920x1080/ddcbbf/food-pizza-baking.jpg");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-        }
 
+        a, a:hover {
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 <body>
-    <div class="nav">
-        <a><h3 class="logo">맛집NOW</h3></a>
-        <button type="button" class="btn btn-outline-light" onclick="logout()">Log out</button>
-        <h5 class="subtitle" style="color: white">{{nickname}}님, 안녕하세요~</h5>
+<div class="nav">
+    <a><h3 class="logo">맛집NOW</h3></a>
+</div>
+<div class="section has-text-centered">
+    <h1 class="title">로그인 페이지</h1>
+    <div class="container" style="width:30%">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label" for="userid">ID</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input type="text" class="input" id="userid" aria-describedby="emailHelp"
+                               placeholder="아이디">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label" for="userpw">PW</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input type="password" class="input" id="userpw" placeholder="비밀번호">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-outline-dark" onclick="login()">로그인</button>
+        <button type="button" class="btn btn-outline-dark" onclick="window.location.href='/register'">회원가입</button>
     </div>
-    <div class="cover"></div>
-
-
+</div>
 </body>
 </html>
